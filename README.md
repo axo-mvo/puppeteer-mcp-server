@@ -29,7 +29,9 @@ puppeteer-vercel/
 │   │   │   └── route.ts
 │   │   ├── screenshot-chromium/        # @sparticuz/chromium API endpoint
 │   │   │   └── route.ts
-│   │   └── scrape/                     # Advanced scraping API endpoint
+│   │   ├── scrape/                     # Advanced scraping API endpoint
+│   │   │   └── route.ts
+│   │   └── mcp/                        # Model Context Protocol endpoint
 │   │       └── route.ts
 │   ├── demo/                           # Interactive demo page
 │   │   └── page.tsx
@@ -126,6 +128,48 @@ The project implements two approaches for running headless Chrome in serverless 
      }
    }
    ```
+
+## MCP (Model Context Protocol) Support
+
+This server now supports the **Model Context Protocol (MCP)**, allowing it to be used as a tool server in AI assistants like Cursor, Claude Desktop, and other MCP-compatible clients.
+
+### MCP Endpoint
+
+**URL:** `/api/mcp`
+
+The MCP endpoint provides the following tools:
+
+| Tool Name | Description | Parameters |
+|-----------|-------------|------------|
+| `take_screenshot` | Take a screenshot of a web page | `url`, `fullPage?`, `viewport?`, `waitFor?` |
+| `generate_pdf` | Generate a PDF from a web page | `url`, `format?`, `landscape?`, `waitFor?` |
+| `extract_text` | Extract text content from a web page | `url`, `selector?`, `waitFor?` |
+| `extract_html` | Extract HTML content from a web page | `url`, `selector?`, `waitFor?` |
+| `get_performance_metrics` | Get performance metrics for a web page | `url`, `waitFor?` |
+
+### Adding to Cursor
+
+Add to your `~/.cursor/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "puppeteer-mcp": {
+      "url": "https://puppeteer-mcp-server.vercel.app/api/mcp",
+      "transport": "sse"
+    }
+  }
+}
+```
+
+### Using MCP Tools
+
+Once configured, you can use natural language commands in Cursor:
+
+- "Take a screenshot of example.com"
+- "Generate a PDF of the homepage"
+- "Extract the title text from this website"
+- "Get performance metrics for this URL"
 
 ## API Endpoints
 
@@ -236,10 +280,12 @@ curl -X POST "https://your-app.vercel.app/api/scrape" \
 - ✅ Performance metrics collection
 - ✅ Custom viewport and wait options
 - ✅ RESTful API endpoints
+- ✅ **MCP (Model Context Protocol) support**
 - ✅ TypeScript support
 - ✅ Interactive demo interface
 - ✅ Multiple browser execution options
 - ✅ Comprehensive error handling
+- ✅ AI assistant integration (Cursor, Claude Desktop)
 
 ## Limitations
 
@@ -296,6 +342,7 @@ The latest version includes several Vercel-specific optimizations:
 - **2025-06-05**: Increased function timeout to 60s and improved error handling
 - **2025-06-05**: Added production URL storage and comprehensive testing suite
 - **2025-06-05**: Fixed file download issue - PDFs and images now download with proper extensions (.pdf, .png) instead of generic .file extension
+- **2025-01-11**: Added Model Context Protocol (MCP) support with comprehensive tool definitions for AI assistant integration
 
 ## Testing
 
