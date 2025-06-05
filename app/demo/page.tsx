@@ -2,10 +2,17 @@
 
 import { useState } from 'react';
 
+interface ResultData {
+  url: string;
+  type: 'image' | 'pdf' | 'json';
+  action?: string;
+  filename: string;
+}
+
 export default function DemoPage() {
   const [url, setUrl] = useState('https://example.com');
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<string | null>(null);
+  const [result, setResult] = useState<ResultData | string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const testScreenshot = async (endpoint: string) => {
@@ -23,7 +30,12 @@ export default function DemoPage() {
 
       const blob = await response.blob();
       const imageUrl = URL.createObjectURL(blob);
-      setResult(imageUrl);
+      setResult({
+        url: imageUrl,
+        type: 'image',
+        action: 'screenshot',
+        filename: `screenshot-${Date.now()}.png`
+      });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error occurred');
     } finally {
@@ -56,10 +68,24 @@ export default function DemoPage() {
         throw new Error(errorData.message || `Failed to ${action}`);
       }
 
-      if (action === 'screenshot' || action === 'pdf') {
+      if (action === 'screenshot') {
         const blob = await response.blob();
         const fileUrl = URL.createObjectURL(blob);
-        setResult(fileUrl);
+        setResult({
+          url: fileUrl,
+          type: 'image',
+          action: 'screenshot',
+          filename: `scrape-screenshot-${Date.now()}.png`
+        });
+      } else if (action === 'pdf') {
+        const blob = await response.blob();
+        const fileUrl = URL.createObjectURL(blob);
+        setResult({
+          url: fileUrl,
+          type: 'pdf',
+          action: 'pdf',
+          filename: `webpage-${Date.now()}.pdf`
+        });
       } else {
         const data = await response.json();
         setResult(JSON.stringify(data, null, 2));
@@ -69,6 +95,52 @@ export default function DemoPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const renderResult = () => {
+    if (typeof result === 'string') {
+      return (
+        <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
+          {result}
+        </pre>
+      );
+    }
+
+    if (result && typeof result === 'object') {
+      if (result.type === 'image') {
+        return (
+          <div className="space-y-4">
+            <img src={result.url} alt="Screenshot" className="max-w-full h-auto border rounded" />
+            <a
+              href={result.url}
+              download={result.filename}
+              className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Download PNG ({result.filename})
+            </a>
+          </div>
+        );
+      } else if (result.type === 'pdf') {
+        return (
+          <div className="space-y-4">
+            <div className="bg-gray-100 p-8 rounded border text-center">
+              <div className="text-4xl mb-2">📄</div>
+              <p className="text-gray-600">PDF Generated Successfully</p>
+              <p className="text-sm text-gray-500">Click download to save the PDF file</p>
+            </div>
+            <a
+              href={result.url}
+              download={result.filename}
+              className="inline-block bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            >
+              Download PDF ({result.filename})
+            </a>
+          </div>
+        );
+      }
+    }
+
+    return null;
   };
 
   return (
@@ -135,23 +207,7 @@ export default function DemoPage() {
       {result && (
         <div className="border border-gray-300 rounded-lg p-4">
           <h3 className="text-lg font-semibold mb-4">Result:</h3>
-          {result.startsWith('blob:') ? (
-            result.includes('image') || result.includes('png') ? (
-              <img src={result} alt="Screenshot" className="max-w-full h-auto border rounded" />
-            ) : (
-              <a
-                href={result}
-                download={`result.${result.includes('pdf') ? 'pdf' : 'file'}`}
-                className="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-              >
-                Download File
-              </a>
-            )
-          ) : (
-            <pre className="bg-gray-100 p-4 rounded overflow-x-auto text-sm">
-              {result}
-            </pre>
-          )}
+          {renderResult()}
         </div>
       )}
 
@@ -162,6 +218,16 @@ export default function DemoPage() {
           <li><code className="bg-gray-200 px-2 py-1 rounded">GET /api/screenshot-browserless?url=...</code></li>
           <li><code className="bg-gray-200 px-2 py-1 rounded">POST /api/scrape</code> - Advanced scraping with JSON body</li>
         </ul>
+        
+        <div className="mt-4 p-4 bg-blue-50 rounded border border-blue-200">
+          <h4 className="font-semibold text-blue-800 mb-2">💡 Tips:</h4>
+          <ul className="text-sm text-blue-700 space-y-1">
+            <li>• Screenshots are saved as PNG files</li>
+            <li>• PDFs are saved with proper .pdf extension</li>
+            <li>• Text/HTML/Performance results are displayed inline</li>
+            <li>• Try different URLs to test various page types</li>
+          </ul>
+        </div>
       </div>
     </div>
   );
