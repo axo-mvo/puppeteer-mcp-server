@@ -2,7 +2,22 @@
 
 A headless Chrome automation server built with Next.js and Puppeteer, designed to run on Vercel with multiple cloud browser options. This project provides RESTful API endpoints for web scraping, screenshot capture, PDF generation, and performance monitoring.
 
-**🔗 GitHub Repository:** https://github.com/axo-mvo/puppeteer-mcp-server
+**🔗 GitHub Repository:** https://github.com/axo-mvo/puppeteer-mcp-server  
+**🌐 Live Demo:** https://puppeteer-mcp-server.vercel.app  
+**🎮 Interactive Demo:** https://puppeteer-mcp-server.vercel.app/demo
+
+## Quick Test
+
+Try the live API right now:
+```bash
+# Take a screenshot
+curl "https://puppeteer-mcp-server.vercel.app/api/screenshot-chromium?url=https://example.com" -o screenshot.png
+
+# Extract text content
+curl -X POST "https://puppeteer-mcp-server.vercel.app/api/scrape" \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://example.com","action":"text"}'
+```
 
 ## Project Structure
 
@@ -279,3 +294,32 @@ The latest version includes several Vercel-specific optimizations:
 - **2024-12-23**: Updated main landing page with feature overview and setup instructions
 - **2024-12-23**: Fixed Vercel timeout issues with optimized Chrome args and faster loading
 - **2024-12-23**: Increased function timeout to 60s and improved error handling
+
+## Testing
+
+### Production Testing
+
+Run the comprehensive test suite:
+```bash
+./test-production.sh
+```
+
+Or test individual endpoints:
+```bash
+# Health check
+npm run test:prod
+
+# Screenshot test
+npm run test:screenshot
+
+# Open demo page
+npm run test:demo
+```
+
+### Manual Testing
+
+**Live Endpoints:**
+- **Main Site:** https://puppeteer-mcp-server.vercel.app/
+- **Demo Page:** https://puppeteer-mcp-server.vercel.app/demo
+- **Screenshot API:** `https://puppeteer-mcp-server.vercel.app/api/screenshot-chromium?url=https://example.com`
+- **Advanced Scraping:** `POST https://puppeteer-mcp-server.vercel.app/api/scrape`

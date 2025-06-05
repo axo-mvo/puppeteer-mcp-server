@@ -1,0 +1,22 @@
+{
+  "production": {
+    "baseUrl": "https://puppeteer-mcp-server.vercel.app",
+    "endpoints": {
+      "home": "https://puppeteer-mcp-server.vercel.app/",
+      "demo": "https://puppeteer-mcp-server.vercel.app/demo",
+      "screenshotChromium": "https://puppeteer-mcp-server.vercel.app/api/screenshot-chromium",
+      "screenshotBrowserless": "https://puppeteer-mcp-server.vercel.app/api/screenshot-browserless",
+      "scrape": "https://puppeteer-mcp-server.vercel.app/api/scrape"
+    },
+    "testUrls": [
+      "https://example.com",
+      "https://github.com",
+      "https://httpbin.org/html"
+    ]
+  },
+  "testCommands": {
+    "healthCheck": "curl -I https://puppeteer-mcp-server.vercel.app",
+    "screenshotTest": "curl -o test-screenshot.png 'https://puppeteer-mcp-server.vercel.app/api/screenshot-chromium?url=https://example.com'",
+    "scrapeTest": "curl -X POST https://puppeteer-mcp-server.vercel.app/api/scrape -H 'Content-Type: application/json' -d '{\"url\":\"https://example.com\",\"action\":\"text\"}'"
+  }
+} 

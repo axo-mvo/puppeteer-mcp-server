@@ -2,11 +2,19 @@
   "name": "puppeteer-vercel",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://puppeteer-mcp-server.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axo-mvo/puppeteer-mcp-server.git"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:prod": "echo 'Testing production endpoints...' && curl -I https://puppeteer-mcp-server.vercel.app",
+    "test:screenshot": "curl -o test-screenshot.png 'https://puppeteer-mcp-server.vercel.app/api/screenshot-chromium?url=https://example.com'",
+    "test:demo": "echo 'Demo page: https://puppeteer-mcp-server.vercel.app/demo'"
   },
   "dependencies": {
     "@sparticuz/chromium": "^133.0.0",
