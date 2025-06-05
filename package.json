@@ -15,7 +15,8 @@
     "test:prod": "echo 'Testing production endpoints...' && curl -I https://puppeteer-mcp-server.vercel.app",
     "test:screenshot": "curl -o test-screenshot.png 'https://puppeteer-mcp-server.vercel.app/api/screenshot-chromium?url=https://example.com'",
     "test:demo": "echo 'Demo page: https://puppeteer-mcp-server.vercel.app/demo'",
-    "test:mcp": "node test-mcp.js"
+    "test:mcp": "node test-mcp.js",
+    "test:mcp-compliant": "node test-mcp-compliant.js"
   },
   "dependencies": {
     "@sparticuz/chromium": "^133.0.0",
