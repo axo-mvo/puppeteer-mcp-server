@@ -133,9 +133,10 @@ The project implements two approaches for running headless Chrome in serverless 
 
 This server now supports the **Model Context Protocol (MCP)**, allowing it to be used as a tool server in AI assistants like Cursor, Claude Desktop, and other MCP-compatible clients.
 
-### MCP Endpoint
+### MCP Endpoints
 
-**URL:** `/api/mcp`
+**URL:** `/api/mcp` (Full-featured for Cursor, Claude Desktop, etc.)
+**URL:** `/api/mcp-compliant` (ChatGPT-compliant version with restrictions)
 
 The MCP endpoint provides the following tools:
 
@@ -147,7 +148,9 @@ The MCP endpoint provides the following tools:
 | `extract_html` | Extract HTML content from a web page | `url`, `selector?`, `waitFor?` |
 | `get_performance_metrics` | Get performance metrics for a web page | `url`, `waitFor?` |
 
-### Adding to Cursor
+### Adding to AI Assistants
+
+#### For Cursor/Claude Desktop (Full Version)
 
 Add to your `~/.cursor/mcp.json`:
 
@@ -161,6 +164,15 @@ Add to your `~/.cursor/mcp.json`:
   }
 }
 ```
+
+#### For ChatGPT (Compliant Version)
+
+Use the compliant endpoint with restricted functionality:
+
+1. Go to ChatGPT Settings → Connectors → Create
+2. Add MCP Server URL: `https://puppeteer-mcp-server.vercel.app/api/mcp-compliant`
+3. Only tools named `search` and `retrieve` are available (OpenAI requirement)
+4. Access is limited to approved domains for security
 
 ### Using MCP Tools
 
@@ -343,6 +355,7 @@ The latest version includes several Vercel-specific optimizations:
 - **2025-06-05**: Added production URL storage and comprehensive testing suite
 - **2025-06-05**: Fixed file download issue - PDFs and images now download with proper extensions (.pdf, .png) instead of generic .file extension
 - **2025-06-05**: Added Model Context Protocol (MCP) support with comprehensive tool definitions for AI assistant integration
+- **2025-06-05**: Created ChatGPT-compliant MCP endpoint with security restrictions and approved domain whitelist
 
 ## Testing
 
