@@ -294,6 +294,8 @@ The latest version includes several Vercel-specific optimizations:
 - **2024-12-23**: Updated main landing page with feature overview and setup instructions
 - **2024-12-23**: Fixed Vercel timeout issues with optimized Chrome args and faster loading
 - **2024-12-23**: Increased function timeout to 60s and improved error handling
+- **2024-12-23**: Added production URL storage and comprehensive testing suite
+- **2024-12-23**: Fixed file download issue - PDFs and images now download with proper extensions (.pdf, .png) instead of generic .file extension
 
 ## Testing
 
