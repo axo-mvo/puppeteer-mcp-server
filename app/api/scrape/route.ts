@@ -19,6 +19,7 @@ interface ScrapeRequest {
 }
 
 export async function POST(request: NextRequest) {
+  let browser;
   try {
     const body: ScrapeRequest = await request.json();
     const { url, action, options = {} } = body;
@@ -37,10 +38,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const browser = await puppeteer.launch({
-      args: chromium.args,
+    browser = await puppeteer.launch({
+      args: [
+        ...chromium.args,
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        '--single-process',
+        '--disable-gpu'
+      ],
+      defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath(),
-      headless: true,
+      headless: chromium.headless,
     });
     
     const page = await browser.newPage();
@@ -50,7 +62,10 @@ export async function POST(request: NextRequest) {
       await page.setViewport(options.viewport);
     }
     
-    await page.goto(url, { waitUntil: 'networkidle0' });
+    await page.goto(url, { 
+      waitUntil: 'domcontentloaded',
+      timeout: 15000 
+    });
     
     // Wait additional time if specified
     if (options.waitFor) {
@@ -138,6 +153,9 @@ export async function POST(request: NextRequest) {
       });
     }
   } catch (error) {
+    if (browser) {
+      await browser.close().catch(() => {});
+    }
     console.error('Scraping error:', error);
     return NextResponse.json(
       { message: 'Failed to perform scraping action', error: error instanceof Error ? error.message : 'Unknown error' }, 

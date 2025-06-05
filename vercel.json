@@ -1,7 +1,7 @@
 {
   "functions": {
     "app/api/**/route.ts": {
-      "maxDuration": 30,
+      "maxDuration": 60,
       "memory": 1024
     }
   },
@@ -16,5 +16,9 @@
         }
       ]
     }
-  ]
+  ],
+  "env": {
+    "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD": "true",
+    "PUPPETEER_EXECUTABLE_PATH": "/opt/render/.cache/puppeteer/chrome"
+  }
 } 
