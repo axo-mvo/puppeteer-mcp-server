@@ -107,6 +107,16 @@ else
 fi
 echo ""
 
+# Test 8: MCP Endpoint
+echo "🤖 Test 8: MCP (Model Context Protocol) Endpoint"
+echo "------------------------------------------------"
+if command -v node &> /dev/null; then
+    node test-mcp.js
+else
+    echo "⚠️  Node.js not found, skipping MCP test"
+fi
+echo ""
+
 # Summary
 echo "📊 Test Summary"
 echo "==============="
@@ -118,6 +128,7 @@ echo "  • Demo page: https://puppeteer-mcp-server.vercel.app/demo"
 echo "  • Screenshot (Chromium): /api/screenshot-chromium?url=..."
 echo "  • Screenshot (Browserless): /api/screenshot-browserless?url=..."
 echo "  • Advanced Scraping: /api/scrape (POST)"
+echo "  • MCP Protocol: /api/mcp (POST/GET/SSE)"
 echo ""
 echo "Generated test files:"
 if [ -s test-chromium.png ]; then
