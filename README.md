@@ -237,17 +237,29 @@ curl -X POST "https://your-app.vercel.app/api/scrape" \
 
 ### Common Issues
 
-1. **Function timeout errors:**
-   - Reduce page complexity or increase timeout in `vercel.json`
-   - Use `waitUntil: 'domcontentloaded'` instead of `'networkidle0'`
+1. **Function timeout errors (FUNCTION_INVOCATION_TIMEOUT):**
+   - **Fixed in latest version**: Optimized Chrome args and faster page loading
+   - Uses `domcontentloaded` instead of `networkidle0` for faster loading
+   - Increased function timeout to 60 seconds in `vercel.json`
+   - Added proper browser cleanup to prevent memory leaks
 
 2. **Memory errors:**
-   - Close browser instances properly
+   - Close browser instances properly (handled automatically)
    - Avoid concurrent requests to same function
+   - Function memory set to 1024MB in configuration
 
 3. **Browserless.io connection errors:**
    - Verify `BLESS_TOKEN` is correctly set
    - Check Browserless.io service status
+
+### Performance Optimizations
+
+The latest version includes several Vercel-specific optimizations:
+- **Faster Chrome startup** with optimized arguments
+- **Reduced page load time** using `domcontentloaded`
+- **Better error handling** with automatic browser cleanup
+- **Increased timeouts** for complex pages (60s function timeout)
+- **Memory optimization** with single-process Chrome mode
 
 ## Contributing
 
@@ -265,3 +277,5 @@ curl -X POST "https://your-app.vercel.app/api/scrape" \
 - **2024-12-23**: Built interactive demo interface with real-time testing
 - **2024-12-23**: Added TypeScript interfaces and comprehensive error handling
 - **2024-12-23**: Updated main landing page with feature overview and setup instructions
+- **2024-12-23**: Fixed Vercel timeout issues with optimized Chrome args and faster loading
+- **2024-12-23**: Increased function timeout to 60s and improved error handling
