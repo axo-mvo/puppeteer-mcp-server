@@ -342,7 +342,7 @@ The latest version includes several Vercel-specific optimizations:
 - **2025-06-05**: Increased function timeout to 60s and improved error handling
 - **2025-06-05**: Added production URL storage and comprehensive testing suite
 - **2025-06-05**: Fixed file download issue - PDFs and images now download with proper extensions (.pdf, .png) instead of generic .file extension
-- **2025-01-11**: Added Model Context Protocol (MCP) support with comprehensive tool definitions for AI assistant integration
+- **2025-06-05**: Added Model Context Protocol (MCP) support with comprehensive tool definitions for AI assistant integration
 
 ## Testing
 
