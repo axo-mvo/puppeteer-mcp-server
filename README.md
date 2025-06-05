@@ -2,6 +2,8 @@
 
 A headless Chrome automation server built with Next.js and Puppeteer, designed to run on Vercel with multiple cloud browser options. This project provides RESTful API endpoints for web scraping, screenshot capture, PDF generation, and performance monitoring.
 
+**🔗 GitHub Repository:** https://github.com/axo-mvo/puppeteer-mcp-server
+
 ## Project Structure
 
 ```
@@ -62,8 +64,8 @@ The project implements two approaches for running headless Chrome in serverless 
 
 1. **Clone and install dependencies:**
    ```bash
-   git clone <repository-url>
-   cd puppeteer-vercel
+   git clone https://github.com/axo-mvo/puppeteer-mcp-server.git
+   cd puppeteer-mcp-server
    npm install
    ```
 
