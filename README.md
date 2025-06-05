@@ -285,17 +285,17 @@ The latest version includes several Vercel-specific optimizations:
 
 ## Change Log
 
-- **2024-12-23**: Initial project setup with Next.js 15 and Puppeteer integration
-- **2024-12-23**: Added @sparticuz/chromium support for self-contained browser execution  
-- **2024-12-23**: Implemented Browserless.io integration for cloud browser instances
-- **2024-12-23**: Created comprehensive scraping API with multiple action types
-- **2024-12-23**: Built interactive demo interface with real-time testing
-- **2024-12-23**: Added TypeScript interfaces and comprehensive error handling
-- **2024-12-23**: Updated main landing page with feature overview and setup instructions
-- **2024-12-23**: Fixed Vercel timeout issues with optimized Chrome args and faster loading
-- **2024-12-23**: Increased function timeout to 60s and improved error handling
-- **2024-12-23**: Added production URL storage and comprehensive testing suite
-- **2024-12-23**: Fixed file download issue - PDFs and images now download with proper extensions (.pdf, .png) instead of generic .file extension
+- **2025-06-05**: Initial project setup with Next.js 15 and Puppeteer integration
+- **2025-06-05**: Added @sparticuz/chromium support for self-contained browser execution  
+- **2025-06-05**: Implemented Browserless.io integration for cloud browser instances
+- **2025-06-05**: Created comprehensive scraping API with multiple action types
+- **2025-06-05**: Built interactive demo interface with real-time testing
+- **2025-06-05**: Added TypeScript interfaces and comprehensive error handling
+- **2025-06-05**: Updated main landing page with feature overview and setup instructions
+- **2025-06-05**: Fixed Vercel timeout issues with optimized Chrome args and faster loading
+- **2025-06-05**: Increased function timeout to 60s and improved error handling
+- **2025-06-05**: Added production URL storage and comprehensive testing suite
+- **2025-06-05**: Fixed file download issue - PDFs and images now download with proper extensions (.pdf, .png) instead of generic .file extension
 
 ## Testing
 
